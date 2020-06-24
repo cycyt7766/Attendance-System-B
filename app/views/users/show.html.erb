@@ -35,8 +35,8 @@
         <th>日付</th>
         <th>曜日</th>
         <th>勤怠登録</th>
-        <th>出勤時間</th>
-        <th>退勤時間</th>
+        <th>出社時間</th>
+        <th>退社時間</th>
         <th>在社時間</th>
         <th>備考</th>
       </tr>
@@ -92,12 +92,13 @@
         <td colspan="2">累計日数</td>
         <td colspan="2">総合勤務時間</td>
         <td colspan="2">累計在社時間</td>
-        <td rowspan="2"></td>
+        <td rowspan="1">所属長承認</td>
       </tr>
       <tr>
         <td colspan="2"><%= @attendances.count %></td>
         <td colspan="2"><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td>
         <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
+        <td></td>
       </tr>
     </tfoot>    
   </table>

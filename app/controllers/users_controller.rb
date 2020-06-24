@@ -6,11 +6,23 @@ class UsersController < ApplicationController
   before_action :set_one_month, only: :show
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page:params[:page])
+    if params[:search].present?
+      @users = @users.search(params[:search])
+    end
+    unless current_user?(@user) || current_user.admin?
+      flash[:danger] = "閲覧権限がありません。"
+      redirect_to root_url
+    end
   end
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
+    @user = User.find(params[:user_id]) if @user.blank?
+    unless current_user?(@user) || current_user.admin?
+      flash[:danger] = "編集権限がありません。"
+      redirect_to root_url
+    end
   end
 
   def new
